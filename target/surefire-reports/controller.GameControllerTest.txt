@@ -1,0 +1,16 @@
+-------------------------------------------------------------------------------
+Test set: controller.GameControllerTest
+-------------------------------------------------------------------------------
+Tests run: 1, Failures: 1, Errors: 0, Skipped: 0, Time elapsed: 0.487 s <<< FAILURE! - in controller.GameControllerTest
+controller.GameControllerTest.testNewGame()  Time elapsed: 0.482 s  <<< FAILURE!
+org.springframework.web.client.HttpClientErrorException$Unauthorized: 401 Unauthorized
+	at org.springframework.web.client.HttpClientErrorException.create(HttpClientErrorException.java:81)
+	at org.springframework.web.client.DefaultResponseErrorHandler.handleError(DefaultResponseErrorHandler.java:122)
+	at org.springframework.web.client.DefaultResponseErrorHandler.handleError(DefaultResponseErrorHandler.java:102)
+	at org.springframework.web.client.ResponseErrorHandler.handleError(ResponseErrorHandler.java:63)
+	at org.springframework.web.client.RestTemplate.handleResponse(RestTemplate.java:778)
+	at org.springframework.web.client.RestTemplate.doExecute(RestTemplate.java:736)
+	at org.springframework.web.client.RestTemplate.execute(RestTemplate.java:710)
+	at org.springframework.web.client.RestTemplate.postForEntity(RestTemplate.java:463)
+	at controller.GameControllerTest.testNewGame(GameControllerTest.java:38)
+
