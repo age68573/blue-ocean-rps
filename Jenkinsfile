@@ -47,9 +47,9 @@ cov-commit-defects --dir ${cov-idir} --url ${COV_URL} --stream ${COV_STREAM} --a
       }
     }
 
-    stage('BlackDock') {
+    stage('BlackDuck') {
       steps {
-        synopsys_detect(returnStatus: true, detectProperties: '--blackduck.trust.cert=true --detect.risk.report.pdf=false --detect.project.version.name=2 --detect.project.name=rock-paper-scissors  --detect.maven.build.command=package  --detect.cleanup=true --detect.maven.path=/opt/maven/bin/mvn --detect.blackduck.signature.scanner.snippet.matching=NONE --detect.excluded.directories=idir')
+        synopsys_detect(returnStatus: true, detectProperties: '--blackduck.trust.cert=true --detect.risk.report.pdf=false --detect.project.version.name=1 --detect.project.name=blue-ocean-rps  --detect.maven.build.command=package  --detect.cleanup=true --detect.maven.path=/opt/maven/bin/mvn --detect.blackduck.signature.scanner.snippet.matching=NONE --detect.excluded.directories=idir')
       }
     }
 
