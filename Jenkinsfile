@@ -27,7 +27,12 @@ pipeline {
           sh '''echo ${COVERITY_TOOL_HOME}
 echo ${cov-idir}
 ls
-cov-capture --dir ${cov-idir} --source-dir ./'''
+echo "start Cpature ....."
+cov-capture --dir ${cov-idir} --source-dir ./
+echo "list capture ....."
+coverity list
+echo "start analyze ....."
+cov-analyze --dir ${cov-idir}'''
         }
 
       }
