@@ -23,7 +23,10 @@ pipeline {
     stage('Run Coverity') {
       agent any
       steps {
-        withCoverityEnvironment(coverityInstanceUrl: 'http://10.107.85.94', createMissingProjectsAndStreams: true, projectName: 'blue-ocean-rps', streamName: 'blue-ocean-rps')
+        withCoverityEnvironment(coverityInstanceUrl: 'http://10.107.85.94', createMissingProjectsAndStreams: true, projectName: 'blue-ocean-rps', streamName: 'blue-ocean-rps') {
+          sh 'echo "123"'
+        }
+
       }
     }
 
