@@ -25,22 +25,23 @@ pipeline {
       agent any
       steps {
         withCoverityEnvironment(coverityInstanceUrl: 'http://10.107.85.94:8080', createMissingProjectsAndStreams: true, projectName: 'blue-ocean-rps', streamName: 'blue-ocean-rps', credentialsId: 'Coverity94') {
-          sh '''echo ${COVERITY_TOOL_HOME}
-echo ${cov-idir}
-ls
-echo "start Cpature ....."
-cov-capture --dir ${cov-idir} --source-dir ./
-echo "list capture ....."
-coverity list
-echo "start analyze ....."
-cov-analyze --dir ${cov-idir}
-dir(${cov-idir}) {
+          sh '''sh "echo ${COVERITY_TOOL_HOME}"
+sh "echo ${cov-idir}"
+sh "ls"
+sh "echo "start Cpature ....." "
+sh " cov-capture --dir ${cov-idir} --source-dir ./"
+sh "echo "list capture .....""
+sh "coverity list"
+sh "echo "start analyze .....""
+sh "cov-analyze --dir ${cov-idir}"
+'''
+        }
+
+        sh '''dir(${cov-idir}) {
         deleteDir()
       }'''
         }
-
       }
-    }
 
+    }
   }
-}
