@@ -34,7 +34,7 @@ echo "list capture ....."
 coverity list
 echo "start analyze ....."
 cov-analyze --dir ${cov-idir}
-dir("${cov-idir}") {
+dir(${cov-idir}) {
         deleteDir()
       }'''
         }
