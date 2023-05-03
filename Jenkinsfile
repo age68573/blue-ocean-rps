@@ -1,14 +1,12 @@
 pipeline {
-  agent any
+  agent {
+    node {
+      label 'master'
+    }
+
+  }
   stages {
     stage('maven') {
-      agent {
-        docker {
-          args '-v /root/.m2:/root/.m2'
-          image 'maven:3-alpine'
-        }
-
-      }
       steps {
         echo 'start clean'
         sh 'mvn clean install'
@@ -16,12 +14,7 @@ pipeline {
     }
 
     stage('Run Coverity') {
-      agent {
-        node {
-          label 'master'
-        }
-
-      }
+      agent any
       steps {
         withCoverityEnvironment(coverityInstanceUrl: 'http://10.107.85.94', createMissingProjectsAndStreams: true, projectName: 'blue-ocean-rps', streamName: 'blue-ocean-rps')
       }
