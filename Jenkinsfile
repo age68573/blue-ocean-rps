@@ -34,7 +34,7 @@ echo "list capture ....."
 coverity list
 echo "start analyze ....."
 cov-analyze --dir ${cov-idir}
-'''
+sh "cov-commit-defects --dir ${iDir} --host ${COVERITY_HOST} --port ${COVERITY_PORT} --stream blueoceantest"'''
         }
 
         sh '''ls
