@@ -11,7 +11,7 @@ pipeline {
       }
       steps {
         echo 'start clean'
-        sh 'mvn --version'
+        sh 'mvn clean install'
       }
     }
 
