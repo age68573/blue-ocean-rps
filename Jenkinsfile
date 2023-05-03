@@ -35,7 +35,7 @@ coverity list
 echo "start analyze ....."
 cov-analyze --dir ${cov-idir}
 echo ${COV_URL}
-cov-commit-defects --dir ${iDir} --host ${COV_URL} --stream ${COV_STREAM}'''
+cov-commit-defects --dir ${cov-idir} --host ${COV_URL} --stream ${COV_STREAM}'''
         }
 
         sh '''ls
