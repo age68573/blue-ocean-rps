@@ -25,6 +25,7 @@ pipeline {
       steps {
         withCoverityEnvironment(coverityInstanceUrl: 'http://10.107.85.94:8080', createMissingProjectsAndStreams: true, projectName: 'blue-ocean-rps', streamName: 'blue-ocean-rps', credentialsId: 'Coverity94') {
           sh '''echo ${COVERITY_TOOL_HOME}
+echo ${cov-idir}
 cov-capture'''
         }
 
