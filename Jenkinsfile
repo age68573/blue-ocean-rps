@@ -17,9 +17,7 @@ pipeline {
       steps {
         echo 'start clean'
         sh '''mvn --version
-dir("${cov-idir}") {
-        deleteDir()
-      }'''
+'''
       }
     }
 
@@ -35,7 +33,10 @@ cov-capture --dir ${cov-idir} --source-dir ./
 echo "list capture ....."
 coverity list
 echo "start analyze ....."
-cov-analyze --dir ${cov-idir}'''
+cov-analyze --dir ${cov-idir}
+dir("${cov-idir}") {
+        deleteDir()
+      }'''
         }
 
       }
