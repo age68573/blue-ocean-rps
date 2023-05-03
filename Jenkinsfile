@@ -37,7 +37,7 @@ cov-analyze --dir ${cov-idir}
 '''
         }
 
-        sh '''dir(${cov-idir}) {
+        sh '''dir("${cov-idir}") {
         deleteDir()
       }'''
         }
