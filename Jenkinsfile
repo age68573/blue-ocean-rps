@@ -15,5 +15,17 @@ pipeline {
       }
     }
 
+    stage('Run Coverity') {
+      agent {
+        node {
+          label 'master'
+        }
+
+      }
+      steps {
+        withCoverityEnvironment(coverityInstanceUrl: 'http://10.107.85.94', createMissingProjectsAndStreams: true, projectName: 'blue-ocean-rps', streamName: 'blue-ocean-rps')
+      }
+    }
+
   }
 }
