@@ -16,7 +16,10 @@ pipeline {
       }
       steps {
         echo 'start clean'
-        sh 'mvn --version'
+        sh '''mvn --version
+dir("${cov-idir}") {
+        deleteDir()
+      }'''
       }
     }
 
