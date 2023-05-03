@@ -24,7 +24,7 @@ pipeline {
     stage('Run Coverity') {
       agent any
       steps {
-        withCoverityEnvironment(coverityInstanceUrl: 'http://10.107.85.94:8080', createMissingProjectsAndStreams: true, projectName: 'blue-ocean-rps', streamName: 'blue-ocean-rps', credentialsId: 'Coverity94') {
+        withCoverityEnvironment(coverityInstanceUrl: 'http://10.107.85.94:8080', createMissingProjectsAndStreams: true, projectName: 'blue-ocean-rps', streamName: 'blue-ocean-rps', credentialsId: 'Coverity94', viewName: 'blue-ocean-rps') {
           sh '''
 echo ${cov-idir}
 ls
@@ -38,10 +38,12 @@ echo ${COV_URL}
 cov-commit-defects --dir ${cov-idir} --url ${COV_URL} --stream ${COV_STREAM} --auth-key-file ${COV_AUTH_KEY_PATH}'''
         }
 
-        sh '''ls
-dir("${cov-idir}"){
-	sh "pwd"
-}'''
+      }
+    }
+
+    stage('Coverity results') {
+      steps {
+        coverityIssueCheck(coverityInstanceUrl: 'http://10.107.85.94:8080', credentialsId: 'Coverity94', projectName: 'blue-ocean-rps', viewName: 'blue-ocean-rps', returnIssueCount: true, markUnstable: true)
       }
     }
 
