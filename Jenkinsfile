@@ -25,7 +25,7 @@ pipeline {
       agent any
       steps {
         withCoverityEnvironment(coverityInstanceUrl: 'http://10.107.85.94:8080', createMissingProjectsAndStreams: true, projectName: 'blue-ocean-rps', streamName: 'blue-ocean-rps', credentialsId: 'Coverity94') {
-          sh '''echo ${COVERITY_TOOL_HOME}
+          sh '''
 echo ${cov-idir}
 ls
 echo "start Cpature ....."
@@ -35,6 +35,7 @@ coverity list
 echo "start analyze ....."
 cov-analyze --dir ${cov-idir}
 echo ${COVERITY_HOST}
+echo ${COV_URL}
 sh "cov-commit-defects --dir ${iDir} --host ${COVERITY_HOST} --port ${COVERITY_PORT} --stream blueoceantest"'''
         }
 
