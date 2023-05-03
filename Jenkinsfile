@@ -4,7 +4,7 @@ pipeline {
     stage('maven') {
       steps {
         echo 'start clean'
-        sh '"mvn clean"'
+        sh '"mvn -B -DskipTests clean package"'
         echo 'start validate'
         sh '"mvn validate"'
         echo 'start package'
