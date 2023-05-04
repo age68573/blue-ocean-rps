@@ -18,13 +18,13 @@ pipeline {
         echo 'start clean'
         sh '''mvn --version
 '''
+        tool(name: 'abv', type: 'sdf')
       }
     }
 
     stage('Run Coverity') {
       agent any
       steps {
-        sh 'mvn --version'
         withCoverityEnvironment(coverityInstanceUrl: 'http://10.107.85.94:8080', createMissingProjectsAndStreams: true, projectName: 'blue-ocean-rps', streamName: 'blue-ocean-rps', credentialsId: 'Coverity94', viewName: 'Outstanding Issues') {
           sh '''
 echo ${cov-idir}
