@@ -7,17 +7,28 @@ pipeline {
   }
   stages {
     stage('maven') {
-      agent {
-        docker {
-          image 'maven:3-alpine'
-          args '-v /root/.m2:/root/.m2'
+      parallel {
+        stage('maven') {
+          agent {
+            docker {
+              image 'maven:3-alpine'
+              args '-v /root/.m2:/root/.m2'
+            }
+
+          }
+          steps {
+            echo 'start clean'
+            sh '''mvn --version
+'''
+          }
         }
 
-      }
-      steps {
-        echo 'start clean'
-        sh '''mvn --version
-'''
+        stage('Check Pom file') {
+          steps {
+            fileExists 'pom.xml'
+          }
+        }
+
       }
     }
 
