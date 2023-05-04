@@ -18,9 +18,7 @@ pipeline {
           }
           steps {
             echo 'start clean'
-            sh '''mvn --version
-pwd
-'''
+            sh 'mvn --version'
           }
         }
 
@@ -36,22 +34,16 @@ pwd
     stage('Run Coverity') {
       agent any
       steps {
-        sh '''mvn --version
-pwd'''
         withCoverityEnvironment(coverityInstanceUrl: 'http://10.107.85.94:8080', createMissingProjectsAndStreams: true, projectName: 'blue-ocean-rps', streamName: 'blue-ocean-rps', credentialsId: 'Coverity94', viewName: 'Outstanding Issues') {
-          sh '''
-echo ${cov-idir}
-ls
+          sh '''echo ${cov-idir}
 echo "start Cpature ....."
 cov-build --dir ${cov-idir} mvn clean package
-ls
 echo "list capture ....."
 coverity list
 echo "start analyze ....."
 cov-analyze --dir ${cov-idir}
 echo ${COV_URL}
-cov-commit-defects --dir ${cov-idir} --url ${COV_URL} --stream ${COV_STREAM} --auth-key-file ${COV_AUTH_KEY_PATH}
-ls'''
+cov-commit-defects --dir ${cov-idir} --url ${COV_URL} --stream ${COV_STREAM} --auth-key-file ${COV_AUTH_KEY_PATH}'''
         }
 
       }
@@ -68,7 +60,6 @@ ls'''
       agent any
       steps {
         synopsys_detect(returnStatus: true, detectProperties: '--blackduck.trust.cert=true --detect.risk.report.pdf=false --detect.project.version.name=1 --detect.project.name=blue-ocean-rps  --detect.maven.build.command=package  --detect.cleanup=true --detect.maven.path=/opt/maven/bin/mvn --detect.blackduck.signature.scanner.snippet.matching=NONE --detect.excluded.directories=idir')
-        sh 'pwd'
       }
     }
 
@@ -76,7 +67,12 @@ ls'''
       agent any
       steps {
         step([$class: 'CodeDxPublisher', analysisName: 'Build #${BUILD_NUMBER}', analysisResultConfiguration: [failureOnlyNew: false, failureSeverity: 'None', numBuildsInGraph: 0, policyBreakBuildBehavior: 'NoAction', unstableOnlyNew: false, unstableSeverity: 'None'], baseBranchName: 'main', key: 'api-key:hkZpD1V2WEpsMjC-cGjr5C24B2HDtvbp9FR4HQ5f', projectId: '3', selfSignedCertificateFingerprint: '', sourceAndBinaryFiles: '**', targetBranchName: 'blue-ocean', url: 'http://10.107.85.95:81/codedx'])
-        sh 'pwd'
+      }
+    }
+
+    stage('Nexus') {
+      steps {
+        echo '123'
       }
     }
 
