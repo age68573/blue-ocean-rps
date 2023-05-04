@@ -67,4 +67,7 @@ cov-commit-defects --dir ${cov-idir} --url ${COV_URL} --stream ${COV_STREAM} --a
     }
 
   }
+  environment {
+    M2_HOME = '/opt/maven/bin'
+  }
 }
