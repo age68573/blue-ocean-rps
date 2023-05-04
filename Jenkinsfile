@@ -5,9 +5,6 @@ pipeline {
     }
 
   }
-  tools {
-        maven 'Apache Maven 3.8.7' 
- }
   stages {
     stage('maven') {
       agent {
@@ -46,28 +43,28 @@ cov-commit-defects --dir ${cov-idir} --url ${COV_URL} --stream ${COV_STREAM} --a
     }
 
     stage('Coverity results') {
+      agent any
       steps {
         coverityIssueCheck(coverityInstanceUrl: 'http://10.107.85.94:8080', credentialsId: 'Coverity94', projectName: 'blue-ocean-rps', viewName: 'Outstanding Issues', returnIssueCount: true, markUnstable: true)
       }
     }
 
     stage('BlackDuck') {
+      agent any
       steps {
         synopsys_detect(returnStatus: true, detectProperties: '--blackduck.trust.cert=true --detect.risk.report.pdf=false --detect.project.version.name=1 --detect.project.name=blue-ocean-rps  --detect.maven.build.command=package  --detect.cleanup=true --detect.maven.path=/opt/maven/bin/mvn --detect.blackduck.signature.scanner.snippet.matching=NONE --detect.excluded.directories=idir')
       }
     }
 
     stage('CodeDX') {
-      agent {
-        node {
-          label 'master'
-        }
-
-      }
+      agent any
       steps {
         step([$class: 'CodeDxPublisher', analysisName: 'Build #${BUILD_NUMBER}', analysisResultConfiguration: [failureOnlyNew: false, failureSeverity: 'None', numBuildsInGraph: 0, policyBreakBuildBehavior: 'NoAction', unstableOnlyNew: false, unstableSeverity: 'None'], baseBranchName: 'main', key: 'api-key:hkZpD1V2WEpsMjC-cGjr5C24B2HDtvbp9FR4HQ5f', projectId: '3', selfSignedCertificateFingerprint: '', sourceAndBinaryFiles: '**', targetBranchName: 'blue-ocean', url: 'http://10.107.85.95:81/codedx'])
       }
     }
 
+  }
+  tools {
+    maven 'Apache Maven 3.8.7'
   }
 }
