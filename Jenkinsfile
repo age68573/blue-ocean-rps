@@ -26,6 +26,7 @@ pipeline {
         stage('tool') {
           steps {
             tool(name: 'Apache Maven 3.8.7', type: 'maven')
+            sh 'mvn --version'
           }
         }
 
