@@ -7,18 +7,28 @@ pipeline {
   }
   stages {
     stage('maven') {
-      agent {
-        docker {
-          image 'maven:3-alpine'
-          args '-v /root/.m2:/root/.m2'
+      parallel {
+        stage('maven') {
+          agent {
+            docker {
+              image 'maven:3-alpine'
+              args '-v /root/.m2:/root/.m2'
+            }
+
+          }
+          steps {
+            echo 'start clean'
+            sh '''mvn --version
+'''
+          }
         }
 
-      }
-      steps {
-        echo 'start clean'
-        sh '''mvn --version
-'''
-        tool(name: 'Apache Maven 3.8.7', type: 'maven')
+        stage('tool') {
+          steps {
+            tool(name: 'Apache Maven 3.8.7', type: 'maven')
+          }
+        }
+
       }
     }
 
