@@ -6,7 +6,7 @@ pipeline {
 
   }
   tools {
-        maven 'apache-maven-3.0.1' 
+        maven 'Apache Maven 3.8.7' 
  }
   stages {
     stage('maven') {
