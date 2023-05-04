@@ -29,7 +29,7 @@ pipeline {
 echo ${cov-idir}
 ls
 echo "start Cpature ....."
-cov-capture --dir ${cov-idir} --source-dir ./
+cov-build --dir ${cov-idir} mvn clean package
 echo "list capture ....."
 coverity list
 echo "start analyze ....."
@@ -61,7 +61,6 @@ cov-commit-defects --dir ${cov-idir} --url ${COV_URL} --stream ${COV_STREAM} --a
 
       }
       steps {
-        
         step([$class: 'CodeDxPublisher', analysisName: 'Build #${BUILD_NUMBER}', analysisResultConfiguration: [failureOnlyNew: false, failureSeverity: 'None', numBuildsInGraph: 0, policyBreakBuildBehavior: 'NoAction', unstableOnlyNew: false, unstableSeverity: 'None'], baseBranchName: 'main', key: 'api-key:hkZpD1V2WEpsMjC-cGjr5C24B2HDtvbp9FR4HQ5f', projectId: '3', selfSignedCertificateFingerprint: '', sourceAndBinaryFiles: '**', targetBranchName: 'blue-ocean', url: 'http://10.107.85.95:81/codedx'])
       }
     }
