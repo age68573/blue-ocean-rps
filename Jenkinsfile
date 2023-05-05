@@ -72,7 +72,7 @@ cov-commit-defects --dir ${cov-idir} --url ${COV_URL} --stream ${COV_STREAM} --a
 
     stage('Nexus') {
       steps {
-        nexusArtifactUploader artifacts: [[artifactId: 'rock-paper-scissors', classifier: '', file: 'target/rock-paper-scissors-1.0-SNAPSHOT.jar', type: 'jar']], credentialsId: 'jenkins-user', groupId: 'restapi', nexusUrl: '10.107.72.6:31368', nexusVersion: 'nexus2', protocol: 'http', repository: 'maven-central-repo', version: '1.0-SNAPSHOT'
+        nexusArtifactUploader artifacts: [[artifactId: 'rock-paper-scissors', classifier: '', file: 'target/rock-paper-scissors-1.0-SNAPSHOT.jar', type: 'jar']], credentialsId: 'jenkins-user', groupId: 'restapi', nexusUrl: '10.107.72.6:31368', nexusVersion: 'nexus3', protocol: 'http', repository: 'maven-central-repo', version: '1.0-SNAPSHOT'
       }
     }
 
